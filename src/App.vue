@@ -3,7 +3,7 @@
 
         <div class="mb-1 shadow p-1 bg-white rounded text-muted font-weight-bold">
             <div class="h2 font-weight-bold text-center col-md-12 p-3">
-                <img src="./assets/favicon-96x96.png"
+                <img src="./assets/icon/favicon-96x96.png"
                      alt="Sokağa Çıkabilir miyim?"
                      width="32"/>
                 <i>Sokağa Çıkabilir miyim?</i>
