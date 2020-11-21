@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
-import ToggleButton from 'vue-js-toggle-button'
 
 import {
     faUserPlus,
@@ -28,13 +27,10 @@ library.add(
     faRunning
 );
 
-Vue.use(ToggleButton);
 Vue.component("FontAwesomeIcon",FontAwesomeIcon);
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = true;
-
-var globalBabies = {};
 
 // Configuration VueAnalytics
 // Vue.use(VueAnalytics, {
@@ -43,6 +39,5 @@ var globalBabies = {};
 
 new Vue({
     // router,
-    render: h => h(App),
-    globalBabies
+    render: h => h(App)
 }).$mount('#app');

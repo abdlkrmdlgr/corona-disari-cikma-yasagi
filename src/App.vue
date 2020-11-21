@@ -41,7 +41,6 @@
             </div>
 
 
-
             <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="this.yasaginKalkmaZamani>0">
                 <p class="text-center">
                     <font-awesome-icon icon="ban" class="fa-3x text-danger"/>
@@ -296,13 +295,13 @@
                         yas: 1,
                         izinBaslangic: 13,
                         izinBitis: 16,
-                        gun: [1, 2, 3, 4, 5, 6, 7],
+                        gun: [1, 2, 3, 4, 5, 6, 0],
                         aciklama: "01.01.2001 Sonrası Doğanlar. İşyerleri ile illiyetlerini gösteren çalışma/SGK kaydı vb. belgeyi ibraz eden çalışanlar hariç"
                     }, {
                         yas: 2,
                         izinBaslangic: 10,
                         izinBitis: 13,
-                        gun: [6, 7],
+                        gun: [6, 0],
                         aciklama: "Üretim, imalat ve tedarik zincirleri bu kısıtlamadan muaftır. "
                     }, {
                         yas: 2,
@@ -314,7 +313,7 @@
                         yas: 3,
                         izinBaslangic: 10,
                         izinBitis: 13,
-                        gun: [1, 2, 3, 4, 5, 6, 7],
+                        gun: [1, 2, 3, 4, 5, 6, 0],
                         aciklama: ""
                     }
                 ]
@@ -364,7 +363,7 @@
                 localStorage.removeItem("selectedAge");
             },
             yenidenYasSec: function () {
-                this.personalCreated=false;
+                this.personalCreated = false;
                 this.istisnaModalShow = false;
             },
             savePersonalInfo: function () {
@@ -407,22 +406,22 @@
                 var minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
 
-                hours = hours*-1;
-                minutes = minutes*-1;
-                seconds = seconds*-1;
+                hours = hours * -1;
+                minutes = minutes * -1;
+                seconds = seconds * -1;
 
-                if (seconds==60){
+                if (seconds == 60) {
                     seconds = 59;
                 }
 
-                if (hours<10){
-                    hours = "0"+hours;
+                if (hours < 10) {
+                    hours = "0" + hours;
                 }
-                if (minutes<10){
-                    minutes = "0"+minutes;
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
                 }
-                 if (seconds<10){
-                     seconds = "0"+seconds;
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
                 }
 
                 this.yasaginKalkmasiIcinKalanSure = hours + " : " + minutes + " : " + seconds;
@@ -430,7 +429,7 @@
             evdeOlmakIcinGeriSayim() {
                 //burada seçim zorunluluğu olmalı. Seçime göre içeri girmesi için ne kadar zamanı kaldı göster.
                 let remainTime = this.evdeOlmaZamani - new Date().getTime();
-                remainTime*=-1;
+                remainTime *= -1;
                 var hours = Math.floor((remainTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
@@ -462,16 +461,16 @@
                                 baslangicSaatiSonrakiGun = true;
                             }
 
-                            let izinBaslangic = this.getTime(kisitlamaItem.izinBaslangic-1);
-                            let izinBitis = this.getTime(kisitlamaItem.izinBitis-1);
+                            let izinBaslangic = this.getTime(kisitlamaItem.izinBaslangic - 1);
+                            let izinBitis = this.getTime(kisitlamaItem.izinBitis - 1);
 
                             //yasak değil. Çıkabilir.
                             if (izinBaslangic < currentTime && currentTime < izinBitis) {
                                 this.isSimdiCikabilir = true;
 
-                                if (bitisSaatiSonrakiGun){
+                                if (bitisSaatiSonrakiGun) {
                                     this.evdeOlmaZamani = izinBitis + 86400000;
-                                }else{
+                                } else {
                                     this.evdeOlmaZamani = izinBitis;
                                 }
 
@@ -480,9 +479,9 @@
                                 //yasak. çıkamaz.
                                 this.isSimdiCikabilir = false;
 
-                                if (baslangicSaatiSonrakiGun){
+                                if (baslangicSaatiSonrakiGun) {
                                     this.yasaginKalkmaZamani = izinBaslangic + 86400000;
-                                }else{
+                                } else {
                                     this.yasaginKalkmaZamani = izinBaslangic;
                                 }
 
