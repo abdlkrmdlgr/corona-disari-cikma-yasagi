@@ -33,12 +33,12 @@
                 <p class="text-center">
                     <font-awesome-icon icon="running" class="fa-3x text-success"/>
                 </p>
-                <h6>Sokakların tadını çıkartın.</h6>
+                <h4>Sokakların tadını çıkartın.</h4>
                 <p>Sosyal mesafeye ve maske takmaya özen gösterin. </p>
                 <p></p>
-                <h6>Evde Olmak İçin </h6>
+                <h4><font-awesome-icon icon="home" /> Evde Olmak İçin </h4>
                 <div class="h5">
-                    <div style="width: 190px;margin-left: auto;margin-right: auto;">
+                    <div style="width: 180px;margin-left: auto;margin-right: auto;">
                         <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[0]}}</div>
                         <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
                         <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[1]}}</div>
@@ -56,9 +56,9 @@
                 <h2>Yasaklı Zamandasınız</h2>
                 <p>Sabırsızlandığınızı biliyorum. Fakat bir süre daha evde kalmak zorundasınız.</p>
                 <p></p>
-                <h5>Özgürlüğünüz İçin</h5>
+                <h5><font-awesome-icon icon="road" />Özgürlüğünüz İçin</h5>
                 <div class="h5">
-                    <div style="width: 190px;margin-left: auto;margin-right: auto;">
+                    <div style="width: 180px;margin-left: auto;margin-right: auto;">
                         <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[0]}}</div>
                         <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
                         <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[1]}}</div>
@@ -690,7 +690,7 @@
         font-weight: bold;
     }
     .saatGosterimiSuccess {
-        background: darkgreen;
+        background: green;
         color:white;
     }
     .saatGosterimiDanger {
