@@ -401,14 +401,10 @@
             },
             yasaginKalkmasiIcinGeriSayim() {
                 //burada seçim zorunluluğu olmalı. Seçime göre şu en erken ne zaman dışarı çıkabilir geri say
-                let remainTime = new Date().getTime() - this.yasaginKalkmaZamani;
+                let remainTime = this.yasaginKalkmaZamani - new Date().getTime();
                 var hours = Math.floor((remainTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
-
-                hours = hours * -1;
-                minutes = minutes * -1;
-                seconds = seconds * -1;
 
                 if (seconds == 60) {
                     seconds = 59;
@@ -429,10 +425,25 @@
             evdeOlmakIcinGeriSayim() {
                 //burada seçim zorunluluğu olmalı. Seçime göre içeri girmesi için ne kadar zamanı kaldı göster.
                 let remainTime = this.evdeOlmaZamani - new Date().getTime();
-                remainTime *= -1;
+
                 var hours = Math.floor((remainTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
+
+                if (seconds == 60) {
+                    seconds = 59;
+                }
+
+                if (hours < 10) {
+                    hours = "0" + hours;
+                }
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+
                 this.evdeOlmakIcinKalanSure = hours + " : " + minutes + " : " + seconds;
             },
             simdiCikabilirmi() {
@@ -461,8 +472,8 @@
                                 baslangicSaatiSonrakiGun = true;
                             }
 
-                            let izinBaslangic = this.getTime(kisitlamaItem.izinBaslangic - 1);
-                            let izinBitis = this.getTime(kisitlamaItem.izinBitis - 1);
+                            let izinBaslangic = this.getTime(kisitlamaItem.izinBaslangic);
+                            let izinBitis = this.getTime(kisitlamaItem.izinBitis);
 
                             //yasak değil. Çıkabilir.
                             if (izinBaslangic < currentTime && currentTime < izinBitis) {
