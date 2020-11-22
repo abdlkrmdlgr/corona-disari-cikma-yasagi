@@ -1,6 +1,6 @@
 <template>
     <ul class="p-0">
-        <li v-for="(item, i) in this.mekanlar" v-bind:key="i" class="card card-body">
+        <li v-for="(item, i) in this.mekanlar" v-bind:key="i" class="card card-body mb-2">
                     <span class="mekanAciklama badge p-3 font-italic font-weight-bold" :class="'badge-'+item.color" style="text-align: left">
                         <font-awesome-icon :icon="item.icon" class="mr-1"/>
                         <span v-if="!durum && !item.hepMiKapali">Çalışma Saatleri Dışında</span>

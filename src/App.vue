@@ -31,13 +31,21 @@
 
             <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="this.evdeOlmaZamani>0">
                 <p class="text-center">
-                    <font-awesome-icon icon="ban" class="fa-3x text-danger"/>
+                    <font-awesome-icon icon="running" class="fa-3x text-success"/>
                 </p>
                 <h6>Sokakların tadını çıkartın.</h6>
                 <p>Sosyal mesafeye ve maske takmaya özen gösterin. </p>
                 <p></p>
                 <h6>Evde Olmak İçin </h6>
-                <p class="h5">{{evdeOlmakIcinKalanSureComputed}}</p>
+                <div class="h5">
+                    <div style="width: 190px;margin-left: auto;margin-right: auto;">
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[0]}}</div>
+                        <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[1]}}</div>
+                        <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[2]}}</div>
+                    </div>
+                </div>
             </div>
 
 
@@ -49,7 +57,15 @@
                 <p>Sabırsızlandığınızı biliyorum. Fakat bir süre daha evde kalmak zorundasınız.</p>
                 <p></p>
                 <h5>Özgürlüğünüz İçin</h5>
-                <p class="h5">{{yasaginKalmakmasiIcinKalanSureComputed}}</p>
+                <div class="h5">
+                    <div style="width: 190px;margin-left: auto;margin-right: auto;">
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[0]}}</div>
+                        <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[1]}}</div>
+                        <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[2]}}</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -117,7 +133,7 @@
                 evdeOlmaZamani: 0,
                 evdeOlmakIcinKalanSure: 0,
                 yasaginKalkmaZamani: 0,
-                yasaginKalkmasiIcinKalanSure: 0,
+                yasaginKalkmasiIcinKalanSure: [],
                 acikMekanlar: [],
                 kapaliMekanlar: [],
                 content: [
@@ -300,7 +316,7 @@
                     }, {
                         yas: 2,
                         izinBaslangic: 10,
-                        izinBitis: 13,
+                        izinBitis: 20,
                         gun: [6, 0],
                         aciklama: "Üretim, imalat ve tedarik zincirleri bu kısıtlamadan muaftır. "
                     }, {
@@ -354,6 +370,19 @@
             yasaginKalmakmasiIcinKalanSureComputed: function () {
                 return this.yasaginKalkmasiIcinKalanSure;
             },
+            saatGosterimiClass: function () {
+                if (this.yasaginKalkmaZamani>0){
+                    if (parseInt(this.yasaginKalkmasiIcinKalanSure[0])===2){
+                        return "saatGosterimiDanger";
+                    }
+                }else if (this.evdeOlmaZamani>0){
+                    if (parseInt(this.evdeOlmakIcinKalanSure[0])===0){
+                        return "saatGosterimiDanger";
+                    }
+                }
+
+                return "saatGosterimiDefault";
+            },
         },
 
         methods: {
@@ -406,7 +435,7 @@
                 var minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
 
-                if (seconds == 60) {
+                if (seconds === 60) {
                     seconds = 59;
                 }
 
@@ -420,7 +449,7 @@
                     seconds = "0" + seconds;
                 }
 
-                this.yasaginKalkmasiIcinKalanSure = hours + " : " + minutes + " : " + seconds;
+                this.yasaginKalkmasiIcinKalanSure = [hours, minutes, seconds];
             },
             evdeOlmakIcinGeriSayim() {
                 //burada seçim zorunluluğu olmalı. Seçime göre içeri girmesi için ne kadar zamanı kaldı göster.
@@ -430,7 +459,7 @@
                 var minutes = Math.floor((remainTime % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((remainTime % (1000 * 60)) / 1000);
 
-                if (seconds == 60) {
+                if (seconds === 60) {
                     seconds = 59;
                 }
 
@@ -444,7 +473,7 @@
                     seconds = "0" + seconds;
                 }
 
-                this.evdeOlmakIcinKalanSure = hours + " : " + minutes + " : " + seconds;
+                this.evdeOlmakIcinKalanSure = [hours, minutes, seconds];
             },
             simdiCikabilirmi() {
                 //burada seçim zorunluluğu olmalı. Seçime göre şu anki zaman diliminde dışarı çıkabilir mi kontrol et.
@@ -650,5 +679,20 @@
         }
     }
 
+    .saatGosterimi {
+        padding: 5px;
+        font-size: 24px;
+        float: left;
+        width: 50px;
+        border-radius: 3px;
+        font-weight: bold;
+    }
+    .saatGosterimiDefault {
+        background: #cecece;
+    }
+    .saatGosterimiDanger {
+        background: #d50303;
+        color:white;
+    }
 
 </style>

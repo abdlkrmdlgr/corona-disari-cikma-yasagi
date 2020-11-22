@@ -27,7 +27,6 @@
             toggle(event) {
 
                     this.$parent.$children.forEach((item) => {
-                        console.error(item);
                         if (item.$el.id === event.currentTarget.parentElement.parentElement.id) item.item.active = !item.item.active
                         else item.item.active = false
                     })
