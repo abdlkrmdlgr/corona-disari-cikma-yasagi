@@ -372,16 +372,18 @@
             },
             saatGosterimiClass: function () {
                 if (this.yasaginKalkmaZamani>0){
-                    if (parseInt(this.yasaginKalkmasiIcinKalanSure[0])===2){
-                        return "saatGosterimiDanger";
+                    if (parseInt(this.yasaginKalkmasiIcinKalanSure[0])===0){
+                        return "saatGosterimiWarning";
                     }
+                    return "saatGosterimiDanger";
                 }else if (this.evdeOlmaZamani>0){
                     if (parseInt(this.evdeOlmakIcinKalanSure[0])===0){
-                        return "saatGosterimiDanger";
+                        return "saatGosterimiWarning";
                     }
+                    return "saatGosterimiSuccess";
                 }
 
-                return "saatGosterimiDefault";
+                return "saatGosterimiSuccess";
             },
         },
 
@@ -687,12 +689,17 @@
         border-radius: 3px;
         font-weight: bold;
     }
-    .saatGosterimiDefault {
-        background: #cecece;
+    .saatGosterimiSuccess {
+        background: darkgreen;
+        color:white;
     }
     .saatGosterimiDanger {
         background: #d50303;
         color:white;
+    }
+    .saatGosterimiWarning {
+        background: #caca00;
+        color:black;
     }
 
 </style>
