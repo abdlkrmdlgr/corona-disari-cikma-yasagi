@@ -14,16 +14,11 @@
             <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="!isPersonalCreatedComputed">
                 <h6>Lütfen yaş aralığızı seçiniz</h6>
                 <p>
-                <span>
-                    <select v-model="selectedAgeChoise" style="padding:10px;">
+                    <select v-model="selectedAgeChoise" style="padding:10px;" @change="savePersonalInfo">
                         <option value="1"> 20 Yaş Altı </option>
                         <option value="2"> 20 ile 65 Arası</option>
                         <option value="3"> 65 Üstü</option>
                     </select>
-                </span>
-                    <span class="btn btn-success h5" @click="savePersonalInfo">
-                    <font-awesome-icon icon="save"/>
-                </span>
                 </p>
                 <a @click="istisnaModalShow=!istisnaModalShow" href="#">İstisna grubuna dahilseniz lütfen istisna
                     kurallarını okuyunuz.</a>
