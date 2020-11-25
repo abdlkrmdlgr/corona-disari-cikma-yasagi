@@ -13,7 +13,7 @@ import {
     faBan,
     faShoppingBag,
     faCar,
-    faRunning, faHome, faRoad
+    faRunning, faHome, faRoad, faChild, faUsers
 
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,7 +26,9 @@ library.add(
     faCar,
     faRunning,
     faHome,
-    faRoad
+    faRoad,
+    faChild,
+    faUsers
 );
 
 Vue.component("FontAwesomeIcon",FontAwesomeIcon);

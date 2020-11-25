@@ -2,7 +2,15 @@
     <div id="app">
 
         <div class="mb-1 shadow p-1 bg-white rounded text-muted font-weight-bold">
+
             <div class="h2 font-weight-bold text-center col-md-12 p-3">
+                <p class="text-right m-0">
+                    <a @click="istisnaModalShow=!istisnaModalShow" href="#" class="mr-2" style="font-size: 14px">
+                        <FontAwesomeIcon icon="info-circle" title="İstisnalar"
+                                         class="text-danger"/>
+                    </a>
+
+                </p>
                 <img src="./assets/icon/favicon-96x96.png"
                      alt="Sokağa Çıkabilir miyim?"
                      width="32"/>
@@ -13,13 +21,6 @@
         <div class="card card-body" v-if="kisiYasaklariTabActive">
             <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="!isPersonalCreatedComputed">
                 <h6>Lütfen yaş aralığızı seçiniz</h6>
-                <p>
-                    <select v-model="selectedAgeChoise" style="padding:10px;" @change="savePersonalInfo">
-                        <option value="1"> 20 Yaş Altı </option>
-                        <option value="2"> 20 ile 65 Arası</option>
-                        <option value="3"> 65 Üstü</option>
-                    </select>
-                </p>
                 <a @click="istisnaModalShow=!istisnaModalShow" href="#">İstisna grubuna dahilseniz lütfen istisna
                     kurallarını okuyunuz.</a>
             </div>
@@ -31,35 +32,55 @@
                 <h4>Sokakların tadını çıkartın.</h4>
                 <p>Sosyal mesafeye ve maske takmaya özen gösterin. </p>
                 <p></p>
-                <h4><font-awesome-icon icon="home" /> Evde Olmak İçin </h4>
+                <h4>
+                    <font-awesome-icon icon="home"/>
+                    Evde Olmak İçin
+                </h4>
                 <div class="h5">
                     <div style="width: 180px;margin-left: auto;margin-right: auto;">
-                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[0]}}</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[0]}}
+                        </div>
                         <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
-                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[1]}}</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[1]}}
+                        </div>
                         <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
-                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[2]}}</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">{{evdeOlmakIcinKalanSureComputed[2]}}
+                        </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="this.yasaginKalkmaZamani>0">
+            <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="yasaginKalkmaZamaniComputed">
                 <p class="text-center">
                     <font-awesome-icon icon="ban" class="fa-3x text-danger"/>
                 </p>
                 <h2>Yasaklı Zamandasınız</h2>
                 <p>Sabırsızlandığınızı biliyorum. Fakat bir süre daha evde kalmak zorundasınız.</p>
                 <p></p>
-                <h5><font-awesome-icon icon="road" />Özgürlüğünüz İçin</h5>
+                <h5>
+                    <font-awesome-icon icon="road"/>
+                    Özgürlüğünüz İçin
+                </h5>
                 <div class="h5">
                     <div style="width: 180px;margin-left: auto;margin-right: auto;">
-                        <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[0]}}</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">
+                            {{yasaginKalmakmasiIcinKalanSureComputed[0]}}
+                        </div>
                         <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
-                        <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[1]}}</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">
+                            {{yasaginKalmakmasiIcinKalanSureComputed[1]}}
+                        </div>
                         <div class="float-left font-weight-bold p-1" style="font-size: 24px">:</div>
-                        <div class="saatGosterimi" :class="saatGosterimiClass">{{yasaginKalmakmasiIcinKalanSureComputed[2]}}</div>
+                        <div class="saatGosterimi" :class="saatGosterimiClass">
+                            {{yasaginKalmakmasiIcinKalanSureComputed[2]}}
+                        </div>
                     </div>
+                </div>
+                <hr class="p-1 m-1"/>
+                <div class="h6 font-weight-bold">Geri Sayım Saati:
+                    <span v-if="bitisSaatiSonrakiGunComputed">Yarın </span>
+                    <span class="h4">{{timeToMoveComputed}}</span>
                 </div>
             </div>
 
@@ -92,22 +113,40 @@
                  no-button>
             <div class="col-md-12 small">
                 <p class="text-right small">
-                    <a v-if="personalCreated" @click="yenidenYasSec" href="#" class="mr-2">
-                        Yeniden Yaş Seç
-                    </a>
-
                     <a href="https://twitter.com/bortecoder">@bortecoder</a>
                 </p>
                 <CustomAccordion v-bind:content.sync="content"/>
             </div>
         </b-modal>
 
-        <nav class="navbar fixed-bottom" style="left: auto!important;">
-            <a @click="istisnaModalShow=!istisnaModalShow" href="#" class="mr-2">
-                <FontAwesomeIcon icon="info-circle" size="3x" title="İstisnalar"
-                                 class="text-danger sticky-top plusIcon shadow bg-white"
-                                 style="border: 4px solid #fff;border-radius: 30%;"/>
-            </a>
+        <nav class="navbar navbar-inverse fixed-bottom bg-dark">
+            <div class="btn col-md-4 col-sm-4 col-4 p-1 font-weight-bold text-white"
+                 :class="selectedAgeChoiseStyleComputed[0]"
+                 @click="savePersonalInfo(1)">
+                <div class="col-md-12 col-sm-12 col-12 p-2 "
+                     style="font-size: 20px; border:solid 1px white; border-radius: 3px">
+                    <font-awesome-icon icon="users"/> &lt; 20
+                </div>
+            </div>
+            <div class="btn col-md-4 col-sm-4 col-4 p-1 font-weight-bold text-white"
+                 :class="selectedAgeChoiseStyleComputed[1]"
+                 @click="savePersonalInfo(2)">
+            <div class="col-md-12 col-sm-12 col-12 p-2 "
+                     style="font-size: 20px; border:solid 1px white; border-radius: 3px">
+                    20
+                    <font-awesome-icon icon="users"/>
+                    65
+                </div>
+            </div>
+            <div class="btn col-md-4 col-sm-4 col-4 p-1 font-weight-bold text-white"
+                 :class="selectedAgeChoiseStyleComputed[2]"
+                 @click="savePersonalInfo(3)">
+                <div class="col-md-12 col-sm-12 col-12 p-2 "
+                     style="font-size: 20px; border:solid 1px white; border-radius: 3px">
+                    <font-awesome-icon icon="users"/>
+                    > 65
+                </div>
+            </div>
         </nav>
 
     </div>
@@ -134,6 +173,9 @@
                 haftaninBuGunu: 1,
                 personalCreated: false,
                 evdeOlmaZamani: 0,
+                timeToMove: 0,
+                bitisSaatiSonrakiGun: false,
+                selectedAgeChoiseStyle: ["bg-dark","bg-dark","bg-dark"],
                 evdeOlmakIcinKalanSure: 0,
                 yasaginKalkmaZamani: 0,
                 yasaginKalkmasiIcinKalanSure: [],
@@ -374,13 +416,13 @@
                 return this.yasaginKalkmasiIcinKalanSure;
             },
             saatGosterimiClass: function () {
-                if (this.yasaginKalkmaZamani>0){
-                    if (parseInt(this.yasaginKalkmasiIcinKalanSure[0])===0){
+                if (this.yasaginKalkmaZamani > 0) {
+                    if (parseInt(this.yasaginKalkmasiIcinKalanSure[0]) === 0) {
                         return "saatGosterimiWarning";
                     }
                     return "saatGosterimiDanger";
-                }else if (this.evdeOlmaZamani>0){
-                    if (parseInt(this.evdeOlmakIcinKalanSure[0])===0){
+                } else if (this.evdeOlmaZamani > 0) {
+                    if (parseInt(this.evdeOlmakIcinKalanSure[0]) === 0) {
                         return "saatGosterimiWarning";
                     }
                     return "saatGosterimiSuccess";
@@ -388,9 +430,21 @@
 
                 return "saatGosterimiSuccess";
             },
-            ozgurlukComputed:function(){
+            ozgurlukComputed: function () {
                 return this.yasaginKalkmaZamani === 0 && this.evdeOlmaZamani === 0;
-            }
+            },
+            timeToMoveComputed: function () {
+                return this.timeToMove + ":00";
+            },
+            bitisSaatiSonrakiGunComputed: function () {
+                return this.bitisSaatiSonrakiGun;
+            },
+            selectedAgeChoiseStyleComputed: function () {
+                return this.selectedAgeChoiseStyle;
+            },
+            yasaginKalkmaZamaniComputed: function () {
+                return this.yasaginKalkmaZamani>0
+            },
         },
 
         methods: {
@@ -399,12 +453,10 @@
             clearPersonelData: function () {
                 localStorage.removeItem("selectedAge");
             },
-            yenidenYasSec: function () {
-                this.personalCreated = false;
-                this.istisnaModalShow = false;
-            },
-            savePersonalInfo: function () {
-                localStorage.setItem("selectedAge", this.selectedAgeChoise);
+            savePersonalInfo: function (age) {
+                localStorage.setItem("selectedAge", age);
+                this.selectedAgeChoiseStyle.fill("bg-dark");
+                this.selectedAgeChoiseStyle[this.getSelectedAge()-1] = "bg-secondary";
                 this.personalCreated = true;
             },
             getSelectedAge: function () {
@@ -499,9 +551,10 @@
                     if (kisitlamaItemYas == selectedAge) {
                         if (kisitlamaItemGun.indexOf(this.haftaninBuGunu) > -1) {
                             //gün kontrolü de yapılmalı. Haftanın hangi günü.
-                            let bitisSaatiSonrakiGun = false;
                             if (currentHour > kisitlamaItem.izinBitis) {
-                                bitisSaatiSonrakiGun = true;
+                                this.bitisSaatiSonrakiGun = true;
+                            } else {
+                                this.bitisSaatiSonrakiGun = false;
                             }
 
                             let baslangicSaatiSonrakiGun = false;
@@ -516,13 +569,14 @@
                             if (izinBaslangic < currentTime && currentTime < izinBitis) {
                                 this.isSimdiCikabilir = true;
 
-                                if (bitisSaatiSonrakiGun) {
+                                if (this.bitisSaatiSonrakiGun) {
                                     this.evdeOlmaZamani = izinBitis + 86400000;
                                 } else {
                                     this.evdeOlmaZamani = izinBitis;
                                 }
 
                                 this.yasaginKalkmaZamani = 0;
+                                this.timeToMove = kisitlamaItem.izinBitis;
                             } else {
                                 //yasak. çıkamaz.
                                 this.isSimdiCikabilir = false;
@@ -534,11 +588,13 @@
                                 }
 
                                 this.evdeOlmaZamani = 0;
+                                this.timeToMove = kisitlamaItem.izinBaslangic
                             }
-                        }else{
+                        } else {
                             //Bugün yasak yok.
                             this.yasaginKalkmaZamani = 0;
                             this.evdeOlmaZamani = 0;
+                            this.timeToMove = 0;
                         }
                     }
                 }
@@ -699,17 +755,20 @@
         border-radius: 3px;
         font-weight: bold;
     }
+
     .saatGosterimiSuccess {
         background: green;
-        color:white;
+        color: white;
     }
+
     .saatGosterimiDanger {
         background: #d50303;
-        color:white;
+        color: white;
     }
+
     .saatGosterimiWarning {
         background: #caca00;
-        color:black;
+        color: black;
     }
 
 </style>
