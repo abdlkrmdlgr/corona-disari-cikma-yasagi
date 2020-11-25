@@ -62,6 +62,14 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="ozgurlukComputed">
+                <p class="text-center">
+                    <font-awesome-icon icon="running" class="fa-3x text-success"/>
+                </p>
+                <h2>Özgürlüğün tadını çıkartın. </h2>
+                <p>Bugün size yasak yoookkkk...</p>
+            </div>
         </div>
 
         <div v-if="mekanlarTabActive" class="card-body">
@@ -380,6 +388,9 @@
 
                 return "saatGosterimiSuccess";
             },
+            ozgurlukComputed:function(){
+                return this.yasaginKalkmaZamani === 0 && this.evdeOlmaZamani === 0;
+            }
         },
 
         methods: {
@@ -524,6 +535,10 @@
 
                                 this.evdeOlmaZamani = 0;
                             }
+                        }else{
+                            //Bugün yasak yok.
+                            this.yasaginKalkmaZamani = 0;
+                            this.evdeOlmaZamani = 0;
                         }
                     }
                 }
