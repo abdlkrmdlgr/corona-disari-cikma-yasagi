@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import VueAnalytics from 'vue-analytics'
 
 import {
     faUserPlus,
@@ -37,9 +38,9 @@ Vue.use(BootstrapVue);
 Vue.config.productionTip = true;
 
 // Configuration VueAnalytics
-// Vue.use(VueAnalytics, {
-//   id: 'UA-12370199-6'
-// });
+Vue.use(VueAnalytics, {
+  id: 'UA-12370199-8'
+});
 
 new Vue({
     // router,

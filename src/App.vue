@@ -5,16 +5,18 @@
 
             <div class="h2 font-weight-bold text-center col-md-12 p-3">
                 <p class="text-right m-0">
-                    <a @click="istisnaModalShow=!istisnaModalShow" href="#" class="mr-2" style="font-size: 14px">
-                        <FontAwesomeIcon icon="info-circle" title="İstisnalar"
-                                         class="text-danger"/>
-                    </a>
 
                 </p>
-                <img src="./assets/icon/favicon-96x96.png"
-                     alt="Sokağa Çıkabilir miyim?"
-                     width="32"/>
+                <span class="text-center"><img src="./assets/icon/favicon-96x96.png"
+                        alt="Sokağa Çıkabilir miyim?"
+                        width="32"/></span>
                 <i>Sokağa Çıkabilir miyim?</i>
+                <span class="float-right">
+                    <a @click="istisnaModalShow=!istisnaModalShow" href="#" class="mr-2" style="font-size: 14px">
+                    <FontAwesomeIcon icon="info-circle" title="İstisnalar"
+                                     class="text-danger"/>
+                </a>
+                </span>
             </div>
         </div>
 
@@ -25,7 +27,7 @@
                     kurallarını okuyunuz.</a>
             </div>
 
-            <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="this.evdeOlmaZamani>0">
+            <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="evdeOlmaZamaniComputed">
                 <p class="text-center">
                     <font-awesome-icon icon="running" class="fa-3x text-success"/>
                 </p>
@@ -49,8 +51,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="card mb-1 p-4 shadow p-3 bg-white rounded" v-if="yasaginKalkmaZamaniComputed">
                 <p class="text-center">
                     <font-awesome-icon icon="ban" class="fa-3x text-danger"/>
@@ -166,7 +166,7 @@
         data: function () {
             return {
                 mekanlarTabActive: true,
-                kisiYasaklariTabActive: true,
+                kisiYasaklariTabActive: false,
                 istisnaModalShow: false,
                 isSimdiCikabilir: false,
                 selectedAgeChoise: 0,
@@ -393,7 +393,11 @@
             }, 60000);
         },
         mounted() {
-            this.personalCreated = localStorage.getItem("selectedAge") !== null
+            if (localStorage.getItem("selectedAge") !== null) {
+                this.personalCreated = true;
+                this.savePersonalInfo(localStorage.getItem("selectedAge"));
+            }
+            this.kisiYasaklariTabActive = false;
             this.mekanlarinDurumunuGetir();
         },
         computed: {
@@ -445,8 +449,13 @@
             yasaginKalkmaZamaniComputed: function () {
                 return this.yasaginKalkmaZamani>0
             },
+            evdeOlmaZamaniComputed: function () {
+                return this.evdeOlmaZamani>0;
+            },
+            kisiYasaklariTabActiveComputed: function () {
+                return this.kisiYasaklariTabActive;
+            },
         },
-
         methods: {
             handleHomePage: function () {
             },
@@ -536,10 +545,13 @@
                 this.evdeOlmakIcinKalanSure = [hours, minutes, seconds];
             },
             simdiCikabilirmi() {
+                this.kisiYasaklariTabActive = true;
                 //burada seçim zorunluluğu olmalı. Seçime göre şu anki zaman diliminde dışarı çıkabilir mi kontrol et.
                 let currentTime = this.getCurrentTime();
                 let currentHour = new Date(currentTime).getHours();
                 var selectedAge = this.getSelectedAge();
+
+                let eslesmeYok = true;
 
                 for (let index in this.kisiKisitlamalari) {
                     let kisitlamaItem = this.kisiKisitlamalari[index];
@@ -590,13 +602,18 @@
                                 this.evdeOlmaZamani = 0;
                                 this.timeToMove = kisitlamaItem.izinBaslangic
                             }
-                        } else {
-                            //Bugün yasak yok.
-                            this.yasaginKalkmaZamani = 0;
-                            this.evdeOlmaZamani = 0;
-                            this.timeToMove = 0;
+                            eslesmeYok = false;
+                            break;
                         }
                     }
+                }
+
+
+                if (eslesmeYok){
+                    //Bugün yasak yok.
+                    this.yasaginKalkmaZamani = 0;
+                    this.evdeOlmaZamani = 0;
+                    this.timeToMove = 0;
                 }
 
             },
